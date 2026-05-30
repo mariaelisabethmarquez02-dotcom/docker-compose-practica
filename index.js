@@ -7,7 +7,9 @@ const app = express();
 // Ruta principal
 app.get("/", (req, res) => {
   res.json({
-    mensaje: "API funcionando correctamente"
+    mensaje: "API funcionando correctamente",
+    ambiente: process.env.NODE_ENV,
+    base_datos: process.env.DB_NAME
   });
 });
 
@@ -30,14 +32,19 @@ app.get("/db", (req, res) => {
     }
 
     res.json({
-      base_datos: "Conectada correctamente"
+      mensaje: "Conectada correctamente",
+      ambiente: process.env.NODE_ENV,
+      base_datos: process.env.DB_NAME
     });
 
     conexion.end();
+
   });
 
 });
 
 app.listen(3000, () => {
-  console.log("Servidor corriendo en puerto 3000");
+  console.log(
+    `Servidor ejecutándose en ambiente ${process.env.NODE_ENV}`
+  );
 });
